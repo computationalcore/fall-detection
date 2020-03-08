@@ -3,7 +3,6 @@ import os
 import cv2
 import time
 import logging as log
-import numpy as np
 
 from argparse import ArgumentParser
 from openvino.inference_engine import IENetwork, IEPlugin
@@ -105,12 +104,11 @@ def main():
         plugin.add_cpu_extension(args.cpu_extension)
 
     # Load model
-    mp = args.model_precision
     model_xml = os.path.join(
         os.getcwd(),
         "models",
         "human-pose-estimation-0001",
-        "FP32",
+        args.model_precision,
         "human-pose-estimation-0001.xml"
     )
     model_bin = os.path.splitext(model_xml)[0] + ".bin"
@@ -192,9 +190,6 @@ def main():
             break
 
         # Pre-process inputs
-        initial_w = cap.get(3)
-        initial_h = cap.get(4)
-        inf_start = time.time()
         in_frame = cv2.resize(next_frame, (w, h))
         in_frame = in_frame.transpose((2, 0, 1))
         in_frame = in_frame.reshape((n, c, h, w))
@@ -205,9 +200,6 @@ def main():
             inputs={input_blob: in_frame}
         )
         if exec_net.requests[cur_request_id].wait(-1) == 0:
-            inf_end = time.time()
-            det_time = inf_end - inf_start
-
             # Parse detection results of the current request
             res = exec_net.requests[cur_request_id].outputs
             kp_heatmaps = res['Mconv7_stage2_L2']
@@ -306,9 +298,6 @@ def main():
         else:
             cv2.imshow("Detection Results", frame)
 
-        render_end = time.time()
-        render_time = render_end - render_start
-
         cur_request_id, next_request_id = next_request_id, cur_request_id
         frame = next_frame
 
@@ -328,8 +317,7 @@ def main():
         log.info("Finished.")
     cv2.destroyAllWindows()
     del exec_net
-    del plugin
 
 
 if __name__ == '__main__':
-    sys.exit(main() or 0)
+    sys.exit(main())
