@@ -4,7 +4,7 @@
 
 This project consists on showcasing the advantages of the Intel’s OpenVINO toolkit for inference in detecting people falling in an edge application.
 
-This app perform single person fall detection using OpenVINO's [human-pose-estimation-0001](https://docs.openvinotoolkit.org/latest/_models_intel_human_pose_estimation_0001_description_human_pose_estimation_0001.html).
+This app perform single person fall detection using OpenVINO's [human-pose-estimation-0001](https://docs.openvinotoolkit.org/latest/_models_intel_human_pose_estimation_0001_description_human_pose_estimation_0001.html) pre-trained model.
 
 To detect falls, the app uses the coordinates of the head(nose, eyes and ears), neck and shoulders positions in a frame-by-frame comparison to determine
 if the person is falling.
@@ -51,9 +51,12 @@ OpenVINO™ toolkit supported Linux operating system. This tutorial was run on 6
 
 - Git(git) for downloading from the GitHub repository.
 
-- BOOST library. To install on Ubuntu, run:
+- BOOST library. 
+
+To install on Ubuntu, run
 
 `apt-get install libboost-dev`
+
 `apt-get install libboost-log-dev`
 
 ### Checks
@@ -88,7 +91,7 @@ By now you should have completed the Linux installation guide for the OpenVINO�
 
 ## Run
 
-To check available options run "python fall_detection.py -h"
+To check available options run
 
 ```
 $ python fall_detection.py -h
