@@ -134,4 +134,10 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 
+# IDE
 .vscode/
+
+# OpenVINO
+l_openvino*
+
+*.mp4

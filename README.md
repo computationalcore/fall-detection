@@ -17,7 +17,9 @@ It works with a video file input or webcam stream.
 
 ## Prerequisites
 
-To run the application in this tutorial, the OpenVINO™ toolkit and its dependencies must already be installed and verified using the included demos. 
+To run the application in this tutorial, the OpenVINO™ toolkit and its dependencies must already be installed. 
+
+Alternatively, you can create and build the docker image provided by this repository by following these [instructions](DOCKER.md).
 
 Installation instructions may be found at: https://software.intel.com/en-us/articles/OpenVINO-Install-Linux
 
@@ -55,9 +57,13 @@ OpenVINO™ toolkit supported Linux operating system. This tutorial was run on 6
 
 To install on Ubuntu, run
 
-`apt-get install libboost-dev`
+``` bash
+apt-get install libboost-dev
+```
 
-`apt-get install libboost-log-dev`
+``` bash
+apt-get install libboost-log-dev
+```
 
 ### Checks
 By now you should have completed the Linux installation guide for the OpenVINO™ toolkit, however before continuing, please ensure:
@@ -75,25 +81,33 @@ By now you should have completed the Linux installation guide for the OpenVINO�
 
 - Clone the repository at desired location:
 
-`git clone https://github.com/computationalcore/fall-detection`
+``` bash
+git clone https://github.com/computationalcore/fall-detection`
+```
 
 - The first step is to configure the build environment for the OpenCV toolkit by sourcing the "setupvars.sh" script.
 
-`source  /opt/intel/openvino/bin/setupvars.sh`
+``` bash
+source  /opt/intel/openvino/bin/setupvars.sh`
+```
 
 - For older versions than 2019 R1, OpenVINO was installed in a different dir, run this instead:
 
-`source  /opt/intel/computer_vision_sdk/bin/setupvars.sh`
+``` bash
+source  /opt/intel/computer_vision_sdk/bin/setupvars.sh`
+```
 
 - Change to the top git repository:
 
-`cd fall-detection`
+``` bash
+cd fall-detection`
+```
 
 ## Run
 
 To check available options run
 
-```
+``` bash
 $ python fall_detection.py -h
 usage: fall_detection.py [-h] -i INPUT [-mp {FP16,FP32}] [-l CPU_EXTENSION] [-pp PLUGIN_DIR] [-d DEVICE]
 
@@ -114,16 +128,25 @@ optional arguments:
                         suitable plugin for device specified (CPU by default)
 ```
 
-### To detect falls on a video file (in this case example/demo.mp4, but it can be any other)
-`python fall_detection.py -i example/demo.mp4`
+### Detecting falls on a video file
 
-### To detect falls on webcam
-`python fall_detection.py -i cam`
+(in this case I use example/demo.mp4, but it can be any other)
+
+``` bash
+python fall_detection.py -i example/demo.mp4
+```
+
+### Detecting falls on webcam
+``` bash
+python fall_detection.py -i cam
+```
 
 ## Limitations
 
 - It works only with a single person, in the future I can add multiple people support, but currently if there is
 more than one person in the scene it will confuse the detector.
+- The detector only takes into consideration the relative positions of head elements, neck and shoulders. In the future it can be improved
+to consider other aspects of the human pose elements 
 
 ## Authors
 Vin Busquet
