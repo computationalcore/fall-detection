@@ -51,9 +51,12 @@ OpenVINOâ„¢ toolkit supported Linux operating system. This tutorial was run on 6
 
 - Git(git) for downloading from the GitHub repository.
 
-- BOOST library. To install on Ubuntu, run:
+- BOOST library. 
+
+To install on Ubuntu, run
 
 `apt-get install libboost-dev`
+
 `apt-get install libboost-log-dev`
 
 ### Checks
@@ -88,7 +91,7 @@ By now you should have completed the Linux installation guide for the OpenVINOâ„
 
 ## Run
 
-To check available options run "python fall_detection.py -h"
+To check available options run
 
 ```
 $ python fall_detection.py -h
