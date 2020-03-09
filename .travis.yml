@@ -1,0 +1,16 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - sudo apt-get update
+
+before_script:
+  - docker pull openvinoincluit/openvino:latest || true
+script:
+  - docker run --name openvino-fall-detection -t -d openvinoincluit/openvino:latest
+  - docker exec openvino-fall-detection git clone https://github.com/computationalcore/fall-detection
+  - docker exec openvino-fall-detection bash -c 'source /opt/intel/openvino/bin/setupvars.sh && cd /app/fall-detection && python fall_detection.py -i example/demo.mp4'
+
+after_script:
+  - docker images
