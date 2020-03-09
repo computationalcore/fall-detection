@@ -1,10 +1,11 @@
-import sys
-import os
-import cv2
-import time
+import argparse
 import logging as log
+import os
+import sys
 
-from argparse import ArgumentParser
+import cv2
+from exitstatus import ExitStatus
+
 from openvino.inference_engine import IENetwork, IEPlugin
 
 JOINT_COLORS = [
@@ -32,9 +33,9 @@ POSE_PAIRS = [
 ]
 
 
-def parse_args():
+def parse_args(parse_this=None) -> argparse.Namespace:
     """Parse user command line arguments."""
-    parser = ArgumentParser(
+    parser = argparse.ArgumentParser(
         description="Detect a person falling from a webcam or a video file"
     )
     parser.add_argument(
@@ -82,10 +83,11 @@ def parse_args():
         default="CPU",
         type=str
     )
-    return parser.parse_args()
+    return parser.parse_args(parse_this)
 
 
 def main():
+    """Accept arguments and perform the inference on entry"""
     # Setup log config
     log.basicConfig(
         format="[ %(levelname)s ] %(message)s",
@@ -134,7 +136,7 @@ def main():
             )
             sys.exit(1)
     input_blob = next(iter(net.inputs))
-    out_blob = next(iter(net.outputs))
+
     log.info("Loading IR to the plugin...")
     exec_net = plugin.load(network=net, num_requests=2)
 
@@ -167,7 +169,6 @@ def main():
     framerate_threshold = round(fps/5.0)
     fall_detected_text_position = (20, round(0.15*height))
 
-    render_time = 0
     ret, frame = cap.read()
     frame_number = 0
 
@@ -291,7 +292,6 @@ def main():
                     cv2.LINE_AA
                 )
 
-        render_start = time.time()
         # If webcam mode
         if out_file:
             out_file.write(frame)
@@ -315,9 +315,9 @@ def main():
         log.info("Finished. %s saved." % (out_filename))
     else:
         log.info("Finished.")
-    cv2.destroyAllWindows()
-    del exec_net
+        cv2.destroyAllWindows()
 
+    return ExitStatus.success
 
 if __name__ == '__main__':
     sys.exit(main())

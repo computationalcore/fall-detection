@@ -58,11 +58,7 @@ OpenVINOâ„¢ toolkit supported Linux operating system. This tutorial was run on 6
 To install on Ubuntu, run
 
 ``` bash
-apt-get install libboost-dev
-```
-
-``` bash
-apt-get install libboost-log-dev
+apt-get install libboost-dev libboost-log-dev
 ```
 
 ### Checks
@@ -82,25 +78,32 @@ By now you should have completed the Linux installation guide for the OpenVINOâ„
 - Clone the repository at desired location:
 
 ``` bash
-git clone https://github.com/computationalcore/fall-detection`
+git clone https://github.com/computationalcore/fall-detection
 ```
 
 - The first step is to configure the build environment for the OpenCV toolkit by sourcing the "setupvars.sh" script.
 
 ``` bash
-source  /opt/intel/openvino/bin/setupvars.sh`
+source  /opt/intel/openvino/bin/setupvars.sh
 ```
 
 - For older versions than 2019 R1, OpenVINO was installed in a different dir, run this instead:
 
 ``` bash
-source  /opt/intel/computer_vision_sdk/bin/setupvars.sh`
+source  /opt/intel/computer_vision_sdk/bin/setupvars.sh
 ```
+
 
 - Change to the top git repository:
 
 ``` bash
-cd fall-detection`
+cd fall-detection
+```
+
+- Install other project dependencies after run openvino env
+
+``` bash
+pip install -r requirements.txt
 ```
 
 ## Run

@@ -1,6 +1,11 @@
 FROM ubuntu:16.04
 
+ADD fall_detection.py /app/
+ADD models /app/models/
+ADD example /app/example/
 ADD l_openvino_toolkit* /openvino/
+
+WORKDIR /app
 
 ARG INSTALL_DIR=/opt/intel/openvino
 
@@ -18,16 +23,14 @@ RUN apt-get install -y --no-install-recommends \
         python3.5 \
         python3.5-dev \
         python3-pip \
-        cmake \
+        python3-setuptools \
         sudo 
-
-RUN pip3 install --upgrade pip setuptools wheel
 
 # Installing OpenVINO dependencies
 RUN cd /openvino/ && \
     ./install_openvino_dependencies.sh
 
-RUN pip3 install numpy
+RUN pip3 install numpy exitstatus
 
 ## Installing OpenVINO itself
 RUN cd /openvino/ && \
