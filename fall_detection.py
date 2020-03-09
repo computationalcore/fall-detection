@@ -92,10 +92,10 @@ def main():
         level=log.INFO,
         stream=sys.stdout
     )
-    log.info("Start Fall Detection")
 
     # Parse args
     args = parse_args()
+    log.info("Start Fall Detection")
 
     # Plugin initialization for specified device
     log.info("Initializing plugin for {} device...".format(args.device))

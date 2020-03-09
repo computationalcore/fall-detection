@@ -10,7 +10,8 @@ before_script:
 script:
   - docker run --name openvino-fall-detection -t -d openvinoincluit/openvino:latest
   - docker exec openvino-fall-detection git clone https://github.com/computationalcore/fall-detection
-  - docker exec openvino-fall-detection bash -c 'source /opt/intel/openvino/bin/setupvars.sh && cd /app/fall-detection && /opt/intel/openvino/deployment_tools/model_optimizer/venv/bin/python fall_detection.py -i example/demo.mp4'
+  - docker exec openvino-fall-detection bash -c 'apt-get update -y && apt-get -y install python3.5-dev'
+  - docker exec openvino-fall-detection bash -c 'source /opt/intel/openvino/bin/setupvars.sh && cd /app/fall-detection && python3 fall_detection.py -i example/demo.mp4'
 
 after_script:
   - docker images

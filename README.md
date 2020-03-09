@@ -47,27 +47,26 @@ Optional:
 ### Software
 OpenVINO™ toolkit supported Linux operating system. This tutorial was run on 64-bit Ubuntu 16.04.1 LTS updated to kernel 4.15.0-43 following the OpenVINO™ toolkit installation instructions.
 
-The latest OpenVINO™ toolkit installed and verified. Supported versions +2018 R4.0. (Lastest version supported 2019 R1.0.1)
+- The latest OpenVINO™ toolkit installed and verified. Supported versions +2018 R4.0. (Lastest version supported 2019 R1.0.1)
 
-Git(git) for downloading from the GitHub repository.
+- Git(git) for downloading from the GitHub repository.
 
-BOOST library. To install on Ubuntu, run:
+- BOOST library. To install on Ubuntu, run:
 
-apt-get install libboost-dev
-apt-get install libboost-log-dev
+`apt-get install libboost-dev`
+`apt-get install libboost-log-dev`
 
 ### Checks
 By now you should have completed the Linux installation guide for the OpenVINO™ toolkit, however before continuing, please ensure:
 
-That after installing the OpenVINO™ toolkit you have run the supplied demo samples
+- That after installing the OpenVINO™ toolkit you have run the supplied demo samples
 
-If you have and intend to use a GPU: You have installed and tested the GPU drivers
+- If you have and intend to use a GPU: You have installed and tested the GPU drivers
 
-If you have and intend to use a USB camera: You have connected and tested the USB camera
+- If you have and intend to use a USB camera: You have connected and tested the USB camera
 
-If you have and intend to use a Myriad: You have connected and tested the USB Intel® Movidius™ Neural Compute Stick
+- If you have and intend to use a Myriad: You have connected and tested the USB Intel® Movidius™ Neural Compute Stick
 
-That your development platform is connected to a network and has Internet access. To download all the files for this tutorial, you will need to access GitHub on the Internet.
 
 ## Build
 
@@ -89,16 +88,39 @@ That your development platform is connected to a network and has Internet access
 
 ## Run
 
-### Detect falls on a video file (in this case example/demo.mp4, but it can be any other)
+To check available options run "python fall_detection.py -h"
+
+```
+$ python fall_detection.py -h
+usage: fall_detection.py [-h] -i INPUT [-mp {FP16,FP32}] [-l CPU_EXTENSION] [-pp PLUGIN_DIR] [-d DEVICE]
+
+Detect a person falling from a webcam or a video file
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i INPUT, --input INPUT
+                        Path to video file or image. 'cam' for capturing video stream from internal camera.
+  -mp {FP16,FP32}, --model_precision {FP16,FP32}
+                        The precision of the human pose model. Default is 32-bit integer.
+  -l CPU_EXTENSION, --cpu_extension CPU_EXTENSION
+                        MKLDNN (CPU)-targeted custom layers.Absolute path to a shared library with the kernels impl.
+  -pp PLUGIN_DIR, --plugin_dir PLUGIN_DIR
+                        Path to a plugin folder
+  -d DEVICE, --device DEVICE
+                        Specify the target device to infer on; CPU, GPU, FPGA or MYRIAD is acceptable. Demo will look for a
+                        suitable plugin for device specified (CPU by default)
+```
+
+### To detect falls on a video file (in this case example/demo.mp4, but it can be any other)
 `python fall_detection.py -i example/demo.mp4`
 
-### Detect falls on webcam
+### To detect falls on webcam
 `python fall_detection.py -i cam`
 
 ## Limitations
 
-- Works only with single person, it may be add in the future, but currently
-multiples person in a scene will confuse the detector.
+- It works only with a single person, in the future I can add multiple people support, but currently if there is
+more than one person in the scene it will confuse the detector.
 
 ## Authors
 Vin Busquet
